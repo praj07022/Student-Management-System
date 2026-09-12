@@ -44,8 +44,6 @@ A web-based Student Management System built using Spring Boot and Thymeleaf. Thi
 ### Courses Page
 ![Courses](screenshots/Course.png)
 
-### Students Page
-![Students](screenshots/students.png)
 
 ### Enrolled Students
 ![Enrolled Students](screenshots/Students-Enrolled.png)

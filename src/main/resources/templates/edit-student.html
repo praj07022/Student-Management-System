@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="~{fragments/layout :: navbar}"></div>
+
+        <main class="container-fluid px-4 py-4">
+
+            <!-- Page Header -->
+            <div class="d-flex justify-content-between align-items-start mb-4">
+
+                <div>
+                    <div class="d-flex align-items-center gap-2 text-muted small mb-2">
+                        <i class="bi bi-people"></i>
+                        <span>Student Management</span>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Update Student</span>
+                    </div>
+
+                    <h2 class="fw-bold mb-1">
+                        Update Student
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Update the student's personal information and account status.
+                    </p>
+                </div>
+
+                <a th:href="@{/students/list}"
+                   class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Back to Students
+                </a>
+
+            </div>
+
+
+            <!-- Main Layout -->
+            <div class="row g-4">
+
+                <!-- Form -->
+                <div class="col-12 col-xl-8">
+
+                    <div class="card border-0 shadow-sm">
+
+                        <!-- Form Header -->
+                        <div class="card-body px-4 py-3 border-bottom">
+
+                            <div class="d-flex align-items-center">
+
+                                <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-2 me-3">
+                                    <i class="bi bi-person-gear fs-5"></i>
+                                </div>
+
+                                <div>
+                                    <h5 class="fw-semibold mb-1">
+                                        Student Information
+                                    </h5>
+
+                                    <p class="text-muted small mb-0">
+                                        Modify the student's registered information.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Form Body -->
+                        <div class="card-body p-4">
+
+                            <form th:action="@{/students/{id}/update(id=${studentDto.id})}"
+                                  th:object="${studentDto}"
+                                  method="post">
+
+                                <!-- Name -->
+                                <div class="row g-4 mb-4">
+
+                                    <!-- First Name -->
+                                    <div class="col-md-6">
+
+                                        <label for="firstName"
+                                               class="form-label fw-semibold">
+                                            First Name
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+
+                                            <input type="text"
+                                                   class="form-control border-start-0"
+                                                   id="firstName"
+                                                   th:field="*{firstName}"
+                                                   th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid' : ''"
+                                                   placeholder="e.g. John">
+
+                                        </div>
+
+                                        <div class="invalid-feedback d-block"
+                                             th:if="${#fields.hasErrors('firstName')}"
+                                             th:errors="*{firstName}">
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Last Name -->
+                                    <div class="col-md-6">
+
+                                        <label for="lastName"
+                                               class="form-label fw-semibold">
+                                            Last Name
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+
+                                            <input type="text"
+                                                   class="form-control border-start-0"
+                                                   id="lastName"
+                                                   th:field="*{lastName}"
+                                                   th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid' : ''"
+                                                   placeholder="e.g. Doe">
+
+                                        </div>
+
+                                        <div class="invalid-feedback d-block"
+                                             th:if="${#fields.hasErrors('lastName')}"
+                                             th:errors="*{lastName}">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Contact -->
+                                <div class="row g-4 mb-4">
+
+                                    <!-- Email -->
+                                    <div class="col-md-6">
+
+                                        <label for="email"
+                                               class="form-label fw-semibold">
+                                            Email Address
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                <i class="bi bi-envelope"></i>
+                                            </span>
+
+                                            <input type="email"
+                                                   class="form-control border-start-0"
+                                                   id="email"
+                                                   th:field="*{email}"
+                                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                                                   placeholder="e.g. john.doe@example.com">
+
+                                        </div>
+
+                                        <div class="invalid-feedback d-block"
+                                             th:if="${#fields.hasErrors('email')}"
+                                             th:errors="*{email}">
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Phone -->
+                                    <div class="col-md-6">
+
+                                        <label for="phone"
+                                               class="form-label fw-semibold">
+                                            Phone Number
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                <i class="bi bi-telephone"></i>
+                                            </span>
+
+                                            <input type="tel"
+                                                   class="form-control border-start-0"
+                                                   id="phone"
+                                                   th:field="*{phoneNumber}"
+                                                   placeholder="e.g. +91 98765 43210">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Student Status -->
+                                <div class="mb-4">
+
+                                    <label for="isActive"
+                                           class="form-label fw-semibold">
+                                        Student Status
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="bi bi-toggle-on"></i>
+                                        </span>
+
+                                        <select id="isActive"
+                                                class="form-select border-start-0"
+                                                th:field="*{active}">
+
+                                            <option th:value="true">
+                                                Yes
+                                            </option>
+
+                                            <option th:value="False">
+                                                No
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-text">
+                                        Set whether this student is currently active.
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Address -->
+                                <div class="mb-4">
+
+                                    <label for="address"
+                                           class="form-label fw-semibold">
+                                        Address
+                                    </label>
+
+                                    <textarea class="form-control"
+                                              id="address"
+                                              rows="4"
+                                              th:field="*{address}"
+                                              th:classappend="${#fields.hasErrors('address')} ? 'is-invalid' : ''"
+                                              placeholder="Enter full address..."></textarea>
+
+                                    <div class="invalid-feedback d-block"
+                                         th:if="${#fields.hasErrors('address')}"
+                                         th:errors="*{address}">
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Actions -->
+                                <div class="border-top pt-4 d-flex justify-content-between align-items-center">
+
+                                    <button type="reset"
+                                            class="btn btn-light border">
+                                        <i class="bi bi-arrow-counterclockwise me-2"></i>
+                                        Reset
+                                    </button>
+
+                                    <div class="d-flex gap-2">
+
+                                        <a th:href="@{/students/list}"
+                                           class="btn btn-outline-secondary">
+                                            Cancel
+                                        </a>
+
+                                        <button type="submit"
+                                                class="btn btn-primary px-4">
+                                            <i class="bi bi-person-check me-2"></i>
+                                            Update Student
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Side Panel -->
+                <div class="col-12 col-xl-4">
+
+                    <!-- Student Profile -->
+                    <div class="card border-0 shadow-sm mb-4">
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center">
+
+                                <div class="student-profile-avatar mx-auto mb-3">
+                                    <i class="bi bi-person fs-1"></i>
+                                </div>
+
+                                <h5 class="fw-semibold mb-1">
+                                    Student Profile
+                                </h5>
+
+                                <p class="text-muted small mb-0">
+                                    ID:
+                                    <span th:text="${studentDto.id}">
+                                        1
+                                    </span>
+                                </p>
+
+                            </div>
+
+                            <hr class="my-4">
+
+
+                            <div class="student-detail-row">
+
+                                <span class="text-muted small">
+                                    First Name
+                                </span>
+
+                                <span class="fw-semibold"
+                                      th:text="${studentDto.firstName}">
+                                    John
+                                </span>
+
+                            </div>
+
+
+                            <div class="student-detail-row">
+
+                                <span class="text-muted small">
+                                    Last Name
+                                </span>
+
+                                <span class="fw-semibold"
+                                      th:text="${studentDto.lastName}">
+                                    Doe
+                                </span>
+
+                            </div>
+
+
+                            <div class="student-detail-row">
+
+                                <span class="text-muted small">
+                                    Email
+                                </span>
+
+                                <span class="fw-semibold text-break"
+                                      th:text="${studentDto.email}">
+                                    john@example.com
+                                </span>
+
+                            </div>
+
+
+                            <div class="student-detail-row border-0 pb-0">
+
+                                <span class="text-muted small">
+                                    Status
+                                </span>
+
+                                <span class="badge bg-success bg-opacity-10 text-success">
+                                    Active
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Update Tips -->
+                    <div class="card border-0 shadow-sm">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-2 me-3">
+                                    <i class="bi bi-lightbulb fs-5"></i>
+                                </div>
+
+                                <h6 class="fw-semibold mb-0">
+                                    Update Tips
+                                </h6>
+
+                            </div>
+
+                            <ul class="list-unstyled small text-muted mb-0">
+
+                                <li class="d-flex mb-3">
+                                    <i class="bi bi-check-circle text-success me-2 mt-1"></i>
+                                    Verify the student's name before saving.
+                                </li>
+
+                                <li class="d-flex mb-3">
+                                    <i class="bi bi-check-circle text-success me-2 mt-1"></i>
+                                    Keep the email address accurate.
+                                </li>
+
+                                <li class="d-flex mb-3">
+                                    <i class="bi bi-check-circle text-success me-2 mt-1"></i>
+                                    Make sure the phone number is reachable.
+                                </li>
+
+                                <li class="d-flex">
+                                    <i class="bi bi-check-circle text-success me-2 mt-1"></i>
+                                    Review the student's status before updating.
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- Existing Scripts -->
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="~{fragments/layout :: navbar}"></div>
+
+        <main class="container-fluid px-4 py-4">
+
+            <!-- Page Header -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
+                <div>
+
+                    <div class="d-flex align-items-center gap-2 text-muted small mb-2">
+                        <i class="bi bi-book"></i>
+                        <span>Course Management</span>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Course Details</span>
+                    </div>
+
+                    <h2 class="fw-bold mb-1">
+                        Course Details
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        View course information, pricing, duration, and status.
+                    </p>
+
+                </div>
+
+                <a th:href="@{/course/list}"
+                   class="btn btn-outline-secondary">
+
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Back to List
+
+                </a>
+
+            </div>
+
+
+            <!-- Course Details -->
+            <div class="card border-0 shadow-sm">
+
+                <!-- Card Header -->
+                <div class="card-body px-4 py-4 border-bottom">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-3 me-3">
+                            <i class="bi bi-journal-text fs-4"></i>
+                        </div>
+
+                        <div>
+
+                            <h5 class="fw-semibold mb-1">
+                                Course Information
+                            </h5>
+
+                            <p class="text-muted small mb-0">
+                                Complete details for this course.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Information Body -->
+                <div class="card-body p-4">
+
+                    <div class="row g-4">
+
+                        <!-- Course Name -->
+                        <div class="col-12 col-md-6">
+
+                            <div class="bg-light rounded-3 p-3 h-100">
+
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div class="rounded-2 bg-white p-2 me-2">
+                                        <i class="bi bi-book text-primary"></i>
+                                    </div>
+
+                                    <span class="text-muted small">
+                                        Course Name
+                                    </span>
+
+                                </div>
+
+                                <div class="fw-semibold"
+                                     th:text="${course.courseName}">
+                                    Course Name
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Course Code -->
+                        <div class="col-12 col-md-6">
+
+                            <div class="bg-light rounded-3 p-3 h-100">
+
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div class="rounded-2 bg-white p-2 me-2">
+                                        <i class="bi bi-upc-scan text-primary"></i>
+                                    </div>
+
+                                    <span class="text-muted small">
+                                        Course Code
+                                    </span>
+
+                                </div>
+
+                                <div class="fw-semibold"
+                                     th:text="${course.courseCode}">
+                                    COURSE-001
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Course Fee -->
+                        <div class="col-12 col-md-6">
+
+                            <div class="bg-light rounded-3 p-3 h-100">
+
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div class="rounded-2 bg-white p-2 me-2">
+                                        <i class="bi bi-currency-rupee text-primary"></i>
+                                    </div>
+
+                                    <span class="text-muted small">
+                                        Course Fee
+                                    </span>
+
+                                </div>
+
+                                <div class="fw-semibold"
+                                     th:text="${course.fee}">
+                                    0
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Duration -->
+                        <div class="col-12 col-md-6">
+
+                            <div class="bg-light rounded-3 p-3 h-100">
+
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div class="rounded-2 bg-white p-2 me-2">
+                                        <i class="bi bi-clock text-primary"></i>
+                                    </div>
+
+                                    <span class="text-muted small">
+                                        Duration
+                                    </span>
+
+                                </div>
+
+                                <div class="fw-semibold"
+                                     th:text="${course.duration}">
+                                    6 Months
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Active Status -->
+                        <div class="col-12 col-md-6">
+
+                            <div class="bg-light rounded-3 p-3 h-100">
+
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div class="rounded-2 bg-white p-2 me-2">
+                                        <i class="bi bi-toggle-on text-primary"></i>
+                                    </div>
+
+                                    <span class="text-muted small">
+                                        Is Active
+                                    </span>
+
+                                </div>
+
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2"
+                                      th:text="${course.active} ? 'Yes' : 'No'">
+                                    Yes
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Course ID -->
+                        <div class="col-12 col-md-6">
+
+                            <div class="bg-light rounded-3 p-3 h-100">
+
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div class="rounded-2 bg-white p-2 me-2">
+                                        <i class="bi bi-hash text-primary"></i>
+                                    </div>
+
+                                    <span class="text-muted small">
+                                        Course ID
+                                    </span>
+
+                                </div>
+
+                                <div class="fw-semibold">
+                                    <span th:text="${course.id}">
+                                        1
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Description -->
+                        <div class="col-12">
+
+                            <div class="border rounded-3 p-4">
+
+                                <div class="d-flex align-items-center mb-3">
+
+                                    <div class="rounded-2 bg-light p-2 me-2">
+                                        <i class="bi bi-text-paragraph text-primary"></i>
+                                    </div>
+
+                                    <span class="fw-semibold">
+                                        Description
+                                    </span>
+
+                                </div>
+
+                                <p class="text-muted mb-0"
+                                   th:text="${course.description}">
+                                    Course description
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card Footer -->
+                <div class="card-footer bg-white border-top p-4">
+
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+
+                        <div class="text-muted small">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Review the course information before making changes.
+                        </div>
+
+                        <a th:href="@{'/course/' + ${course.id} + '/edit'}"
+                           class="btn btn-primary">
+
+                            <i class="bi bi-pencil me-2"></i>
+                            Edit Course
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- Existing Scripts -->
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+
+</html>

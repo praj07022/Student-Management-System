@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="page-content-wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="~{fragments/layout :: navbar}"></div>
+
+        <main class="container-fluid px-4 py-4">
+
+            <!-- Page Header -->
+            <div class="page-header mb-4">
+
+                <div>
+                    <div class="text-muted small mb-1">
+                        <i class="bi bi-grid me-1"></i>
+                        Course Management
+                    </div>
+
+                    <h1 class="fw-bold mb-1">
+                        Add New Course
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        Create a new course and add it to your academic catalog.
+                    </p>
+                </div>
+
+                <a th:href="@{/course/list}"
+                   class="btn btn-outline-secondary px-3">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Back to Courses
+                </a>
+
+            </div>
+
+
+            <!-- Course Form -->
+            <div class="row">
+
+                <div class="col-12 col-xl-9">
+
+                    <div class="card border-0 shadow-sm">
+
+                        <!-- Card Header -->
+                        <div class="card-header bg-white border-bottom py-3 px-4">
+
+                            <div class="d-flex align-items-center">
+
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-2 me-3">
+                                    <i class="bi bi-journal-plus fs-5"></i>
+                                </div>
+
+                                <div>
+                                    <h5 class="mb-0 fw-semibold">
+                                        Course Information
+                                    </h5>
+
+                                    <small class="text-muted">
+                                        Enter the basic details of the new course.
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Card Body -->
+                        <div class="card-body p-4">
+
+                            <form th:action="@{/course}"
+                                  th:object="${courseDto}"
+                                  method="post">
+
+
+                                <!-- Course Name + Course Code -->
+                                <div class="row g-4 mb-4">
+
+                                    <!-- Course Name -->
+                                    <div class="col-md-7">
+
+                                        <label for="courseName"
+                                               class="form-label fw-semibold">
+                                            Course Name
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                <i class="bi bi-book"></i>
+                                            </span>
+
+                                            <input type="text"
+                                                   th:field="*{courseName}"
+                                                   class="form-control border-start-0"
+                                                   id="courseName"
+                                                   placeholder="e.g. Full Stack Web Development"
+                                                   th:classappend="${#fields.hasErrors('courseName')} ? 'is-invalid' : ''"
+                                                   required>
+
+                                        </div>
+
+                                        <div class="text-danger small mt-1"
+                                             th:if="${#fields.hasErrors('courseName')}"
+                                             th:errors="*{courseName}">
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Course Code -->
+                                    <div class="col-md-5">
+
+                                        <label for="code"
+                                               class="form-label fw-semibold">
+                                            Course Code
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                <i class="bi bi-upc-scan"></i>
+                                            </span>
+
+                                            <input type="text"
+                                                   th:field="*{courseCode}"
+                                                   class="form-control border-start-0"
+                                                   id="code"
+                                                   th:classappend="${#fields.hasErrors('courseCode')} ? 'is-invalid' : ''"
+                                                   placeholder="e.g. WEB101"
+                                                   required>
+
+                                        </div>
+
+                                        <div class="text-danger small mt-1"
+                                             th:if="${#fields.hasErrors('courseCode')}"
+                                             th:errors="*{courseCode}">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Duration + Fee -->
+                                <div class="row g-4 mb-4">
+
+                                    <!-- Duration -->
+                                    <div class="col-md-6">
+
+                                        <label for="duration"
+                                               class="form-label fw-semibold">
+                                            Duration
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                <i class="bi bi-calendar3"></i>
+                                            </span>
+
+                                            <input type="text"
+                                                   th:field="*{duration}"
+                                                   class="form-control border-start-0"
+                                                   id="duration"
+                                                   placeholder="e.g. 6 Months"
+                                                   th:classappend="${#fields.hasErrors('duration')} ? 'is-invalid' : ''"
+                                                   required>
+
+                                        </div>
+
+                                        <div class="text-danger small mt-1"
+                                             th:if="${#fields.hasErrors('duration')}"
+                                             th:errors="*{duration}">
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Course Fee -->
+                                    <div class="col-md-6">
+
+                                        <label for="fee"
+                                               class="form-label fw-semibold">
+                                            Course Fee
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <span class="input-group-text bg-light border-end-0">
+                                                ₹
+                                            </span>
+
+                                            <input type="number"
+                                                   step="0.01"
+                                                   min="0"
+                                                   th:field="*{fee}"
+                                                   class="form-control border-start-0"
+                                                   id="fee"
+                                                   placeholder="e.g. 12000"
+                                                   th:classappend="${#fields.hasErrors('fee')} ? 'is-invalid' : ''"
+                                                   required>
+
+                                        </div>
+
+                                        <div class="text-danger small mt-1"
+                                             th:if="${#fields.hasErrors('fee')}"
+                                             th:errors="*{fee}">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Description -->
+                                <div class="mb-4">
+
+                                    <label for="description"
+                                           class="form-label fw-semibold">
+                                        Course Description
+                                    </label>
+
+                                    <textarea class="form-control"
+                                              th:field="*{description}"
+                                              id="description"
+                                              rows="6"
+                                              placeholder="Describe what students will learn in this course..."></textarea>
+
+                                    <div class="text-danger small mt-1"
+                                         th:if="${#fields.hasErrors('description')}"
+                                         th:errors="*{description}">
+                                    </div>
+
+                                    <div class="form-text">
+                                        Provide a short overview of the course content and objectives.
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Divider -->
+                                <hr class="my-4">
+
+
+                                <!-- Actions -->
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <button type="reset"
+                                            class="btn btn-light border px-4">
+                                        <i class="bi bi-arrow-counterclockwise me-2"></i>
+                                        Reset
+                                    </button>
+
+                                    <div class="d-flex gap-2">
+
+                                        <a th:href="@{/course/list}"
+                                           class="btn btn-outline-secondary px-4">
+                                            Cancel
+                                        </a>
+
+                                        <button type="submit"
+                                                class="btn btn-primary px-4">
+                                            <i class="bi bi-check2-circle me-2"></i>
+                                            Create Course
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Information Panel -->
+                <div class="col-12 col-xl-3 mt-4 mt-xl-0">
+
+                    <div class="card border-0 shadow-sm">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div class="bg-info bg-opacity-10 text-info rounded-3 p-2 me-3">
+                                    <i class="bi bi-lightbulb fs-5"></i>
+                                </div>
+
+                                <h6 class="fw-semibold mb-0">
+                                    Course Guidelines
+                                </h6>
+
+                            </div>
+
+                            <ul class="list-unstyled small text-muted mb-0">
+
+                                <li class="d-flex mb-3">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    Use a clear and descriptive course name.
+                                </li>
+
+                                <li class="d-flex mb-3">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    Keep the course code short and unique.
+                                </li>
+
+                                <li class="d-flex mb-3">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    Specify the expected course duration.
+                                </li>
+
+                                <li class="d-flex">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    Add enough description to help students understand the course.
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Quick Navigation -->
+                    <div class="card border-0 shadow-sm mt-3">
+
+                        <div class="card-body p-4">
+
+                            <h6 class="fw-semibold mb-3">
+                                Quick Navigation
+                            </h6>
+
+                            <div class="d-grid gap-2">
+
+                                <a th:href="@{/course/list}"
+                                   class="btn btn-light text-start">
+                                    <i class="bi bi-journals me-2"></i>
+                                    View All Courses
+                                </a>
+
+                                <a th:href="@{/student/list}"
+                                   class="btn btn-light text-start">
+                                    <i class="bi bi-people me-2"></i>
+                                    Manage Students
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- Existing Scripts -->
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+</html>

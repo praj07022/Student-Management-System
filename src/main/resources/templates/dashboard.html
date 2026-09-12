@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="~{fragments/layout :: navbar}"></div>
+
+        <main class="container-fluid px-4 py-4">
+
+            <!-- Dashboard Header -->
+            <div class="d-flex justify-content-between align-items-start mb-4">
+
+                <div>
+                    <div class="d-flex align-items-center gap-2 text-muted small mb-2">
+                        <i class="bi bi-grid-1x2"></i>
+                        <span>Overview</span>
+                    </div>
+
+                    <h2 class="fw-bold mb-1">
+                        Dashboard
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Welcome back. Here's an overview of your student management system.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Statistics -->
+            <div class="row g-4 mb-4">
+
+                <!-- Total Students -->
+                <div class="col-sm-6 col-xl-3">
+
+                    <div class="card border-0 shadow-sm h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex justify-content-between align-items-start">
+
+                                <div>
+
+                                    <p class="text-muted small fw-medium mb-2">
+                                        Total Students
+                                    </p>
+
+                                    <h2 class="fw-bold mb-2"
+                                        th:text="${dashboardStats.totalStudents}">
+                                        0
+                                    </h2>
+
+                                    <span class="small text-muted">
+                                        Registered students
+                                    </span>
+
+                                </div>
+
+                                <div class="dashboard-stat-icon bg-primary bg-opacity-10 text-primary">
+                                    <i class="bi bi-people"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Total Courses -->
+                <div class="col-sm-6 col-xl-3">
+
+                    <div class="card border-0 shadow-sm h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex justify-content-between align-items-start">
+
+                                <div>
+
+                                    <p class="text-muted small fw-medium mb-2">
+                                        Total Courses
+                                    </p>
+
+                                    <h2 class="fw-bold mb-2"
+                                        th:text="${dashboardStats.totalCourses}">
+                                        0
+                                    </h2>
+
+                                    <span class="small text-muted">
+                                        Available programs
+                                    </span>
+
+                                </div>
+
+                                <div class="dashboard-stat-icon bg-success bg-opacity-10 text-success">
+                                    <i class="bi bi-book"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Top Performing Course -->
+                <div class="col-sm-6 col-xl-3">
+
+                    <div class="card border-0 shadow-sm h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex justify-content-between align-items-start">
+
+                                <div class="pe-2">
+
+                                    <p class="text-muted small fw-medium mb-2">
+                                        Top Performing Course
+                                    </p>
+
+                                    <h5 class="fw-bold mb-2"
+                                        th:text="${dashboardStats.topPerformingCourse}">
+                                        Course Name
+                                    </h5>
+
+                                    <span class="small text-muted">
+                                        Highest enrollment
+                                    </span>
+
+                                </div>
+
+                                <div class="dashboard-stat-icon bg-warning bg-opacity-10 text-warning">
+                                    <i class="bi bi-trophy"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Monthly Enrollment -->
+                <div class="col-sm-6 col-xl-3">
+
+                    <div class="card border-0 shadow-sm h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex justify-content-between align-items-start">
+
+                                <div>
+
+                                    <p class="text-muted small fw-medium mb-2">
+                                        Enrolled This Month
+                                    </p>
+
+                                    <h2 class="fw-bold mb-2"
+                                        th:text="${dashboardStats.studentsEnrolledThisMonth}">
+                                        0
+                                    </h2>
+
+                                    <span class="small text-muted">
+                                        New enrollments
+                                    </span>
+
+                                </div>
+
+                                <div class="dashboard-stat-icon bg-info bg-opacity-10 text-info">
+                                    <i class="bi bi-person-check"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Recent Registrations -->
+            <div class="card border-0 shadow-sm">
+
+                <!-- Section Header -->
+                <div class="card-body px-4 py-3 border-bottom">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-2 me-3">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <h5 class="fw-semibold mb-1">
+                                    Recent Student Registrations
+                                </h5>
+
+                                <p class="text-muted small mb-0">
+                                    Recently registered students and their enrollment details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Empty State -->
+                <div class="card-body text-center py-5"
+                     th:if="${students.isEmpty()}">
+
+                    <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3"
+                         style="width: 70px; height: 70px;">
+
+                        <i class="bi bi-people fs-3 text-muted"></i>
+
+                    </div>
+
+                    <h5 class="fw-semibold mb-2">
+                        No Recent Registrations
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        No student registration activity is available yet.
+                    </p>
+
+                </div>
+
+
+                <!-- Student Table -->
+                <div class="table-responsive"
+                     th:if="${!students.isEmpty()}">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead class="table-light">
+
+                        <tr>
+
+                            <th class="ps-4">
+                                #
+                            </th>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Courses
+                            </th>
+
+                            <th>
+                                Total Fee
+                            </th>
+
+                            <th class="text-end pe-4">
+                                Action
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <tr th:each="student : ${students}">
+
+                            <!-- Student ID -->
+                            <td class="ps-4">
+
+                                <span class="badge bg-light text-dark border"
+                                      th:text="${student.studentId}">
+                                    1
+                                </span>
+
+                            </td>
+
+
+                            <!-- Student Name -->
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="student-avatar bg-primary bg-opacity-10 text-primary me-3">
+
+                                        <i class="bi bi-person"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="fw-semibold"
+                                             th:text="${student.studentName}">
+                                            John Doe
+                                        </div>
+
+                                        <small class="text-muted">
+                                            Student
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- Email -->
+                            <td>
+
+                                <div class="d-flex align-items-center text-muted">
+
+                                    <i class="bi bi-envelope me-2"></i>
+
+                                    <span th:text="${student.email}">
+                                        student@example.com
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- Courses Count -->
+                            <td>
+
+                                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2"
+                                      th:text="${student.courseCount}">
+                                    0
+                                </span>
+
+                            </td>
+
+
+                            <!-- Total Fee -->
+                            <td>
+
+                                <span class="fw-semibold"
+                                      th:text="${student.totalFee}">
+                                    0
+                                </span>
+
+                            </td>
+
+
+                            <!-- Action -->
+                            <td class="text-end pe-4">
+
+                                <a th:href="@{/enrollments/getStudentEnrollmentDetails/{id}(id=${student.studentId}, source='dashboard')}"
+                                   class="btn btn-sm btn-light border"
+                                   title="View Enrollment Details">
+
+                                    <i class="bi bi-eye me-1"></i>
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+
+        <!-- Footer -->
+        <footer class="py-4 mt-4 border-top bg-light">
+
+            <div class="container-fluid px-4">
+
+                <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 small">
+
+                    <div class="text-muted">
+                        Copyright &copy; Student Management System 2023
+                    </div>
+
+                    <div>
+
+                        <a href="#"
+                           class="text-decoration-none text-muted">
+                            Privacy Policy
+                        </a>
+
+                        <span class="text-muted mx-2">
+                            ·
+                        </span>
+
+                        <a href="#"
+                           class="text-decoration-none text-muted">
+                            Terms &amp; Conditions
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+</div>
+
+
+<!-- Existing Scripts -->
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+
+</html>

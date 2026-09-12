@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="~{fragments/layout :: navbar}"></div>
+
+        <main class="container-fluid px-4 py-4">
+
+            <!-- Page Header -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
+                <div>
+                    <div class="d-flex align-items-center gap-2 text-muted small mb-2">
+                        <i class="bi bi-mortarboard"></i>
+                        <span>Enrollment Management</span>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Enrolled Students</span>
+                    </div>
+
+                    <h2 class="fw-bold mb-1">
+                        Students Enrolled in Courses
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Track student enrollments, course counts, and total fees.
+                    </p>
+                </div>
+
+                <a th:href="@{/enrollments/showEnroll}"
+                   class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-2"></i>
+                    Enroll Student
+                </a>
+
+            </div>
+
+
+            <!-- Success Message -->
+            <div th:if="${message}"
+                 class="alert alert-success border-0 shadow-sm d-flex align-items-center mb-4"
+                 role="alert"
+                 th:text="${message}">
+
+                <i class="bi bi-check-circle me-2"></i>
+
+            </div>
+
+
+            <!-- Enrollment Card -->
+            <div class="card border-0 shadow-sm">
+
+                <!-- Card Header -->
+                <div class="card-body px-4 py-3 border-bottom">
+
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-2 me-3">
+                                <i class="bi bi-people fs-5"></i>
+                            </div>
+
+                            <div>
+                                <h5 class="fw-semibold mb-1">
+                                    Enrolled Students
+                                </h5>
+
+                                <p class="text-muted small mb-0">
+                                    View enrollment information and student details.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <span class="badge bg-light text-dark border">
+                            Enrollment Records
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card Body -->
+                <div class="card-body p-0">
+
+                    <!-- Empty State -->
+                    <div th:if="${students.content.isEmpty()}"
+                         class="text-center py-5 px-4">
+
+                        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3"
+                             style="width: 64px; height: 64px;">
+
+                            <i class="bi bi-person-x fs-3 text-muted"></i>
+
+                        </div>
+
+                        <h5 class="fw-semibold mb-2">
+                            No Enrollment Records
+                        </h5>
+
+                        <p class="text-muted mb-3">
+                            No students are currently enrolled in courses.
+                        </p>
+
+                        <a th:href="@{/enrollments/showEnroll}"
+                           class="btn btn-primary btn-sm">
+
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Enroll Student
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- Students Table -->
+                    <div class="table-responsive"
+                         th:if="${!students.content.isEmpty()}">
+
+                        <table class="table table-hover align-middle mb-0">
+
+                            <thead class="table-light">
+
+                            <tr>
+
+                                <th class="ps-4" style="width: 80px;">
+                                    #
+                                </th>
+
+                                <th>
+                                    Student
+                                </th>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    Courses
+                                </th>
+
+                                <th>
+                                    Total Fee
+                                </th>
+
+                                <th class="text-end pe-4">
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                            <tr th:each="student : ${students.content}">
+
+                                <!-- ID -->
+                                <td class="ps-4">
+
+                                    <span class="text-muted fw-semibold"
+                                          th:text="${student.studentId}">
+                                        1
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Student Name -->
+                                <td>
+
+                                    <div class="d-flex align-items-center">
+
+                                        <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center me-3"
+                                             style="width: 42px; height: 42px;">
+
+                                            <i class="bi bi-person"></i>
+
+                                        </div>
+
+                                        <div>
+
+                                            <div class="fw-semibold"
+                                                 th:text="${student.studentName}">
+                                                Student Name
+                                            </div>
+
+                                            <small class="text-muted">
+                                                Enrolled Student
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Email -->
+                                <td>
+
+                                    <span class="text-muted"
+                                          th:text="${student.email}">
+                                        student@example.com
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Course Count -->
+                                <td>
+
+                                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2"
+                                          th:text="${student.courseCount}">
+                                        3
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Total Fee -->
+                                <td>
+
+                                    <span class="fw-semibold"
+                                          th:text="${student.totalFee}">
+                                        Rs.10,000
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Action -->
+                                <td class="text-end pe-4">
+
+                                    <a th:href="@{/enrollments/getStudentEnrollmentDetails/{id}(id=${student.studentId}, source='enrollments')}"
+                                       class="btn btn-sm btn-outline-primary"
+                                       title="View Enrollment Details">
+
+                                        <i class="bi bi-eye me-1"></i>
+                                        View Details
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- Pagination -->
+                    <div class="px-4 py-3 border-top"
+                         th:if="${!students.content.isEmpty()}">
+
+                        <nav aria-label="Course pagination">
+
+                            <ul class="pagination justify-content-end mb-0">
+
+                                <!-- Previous -->
+                                <li class="page-item"
+                                    th:classappend="${students.first} ? 'disabled'">
+
+                                    <a class="page-link"
+                                       th:href="@{'/enrollments/enrollmentList'(page=${students.first ? 0 : students.number -1}, size=${students.size})}">
+
+                                        <i class="bi bi-chevron-left me-1"></i>
+                                        Previous
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- Page Numbers -->
+                                <li class="page-item"
+                                    th:each="pageNum : ${#numbers.sequence(0, students.totalPages-1)}"
+                                    th:classappend="${pageNum} == ${students.number} ? 'active' : ''">
+
+                                    <a class="page-link"
+                                       th:href="@{'/enrollments/enrollmentList'(page=${pageNum}, size=${students.size})}"
+                                       th:text="${pageNum + 1}">
+                                        1
+                                    </a>
+
+                                </li>
+
+
+                                <!-- Next -->
+                                <li class="page-item"
+                                    th:classappend="${students.last} ? 'disabled'">
+
+                                    <a class="page-link"
+                                       th:href="@{'/enrollments/enrollmentList'(page=${students.last ? students.number : students.number + 1}, size=${students.size})}">
+
+                                        Next
+                                        <i class="bi bi-chevron-right ms-1"></i>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </nav>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- Existing Scripts -->
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+
+</html>

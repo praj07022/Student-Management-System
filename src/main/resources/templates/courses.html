@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="~{fragments/layout :: navbar}"></div>
+
+        <main class="container-fluid px-4 py-4">
+
+            <!-- Page Header -->
+            <div class="d-flex justify-content-between align-items-start mb-4">
+
+                <div>
+                    <div class="d-flex align-items-center gap-2 text-muted small mb-2">
+                        <i class="bi bi-journal-bookmark"></i>
+                        <span>Course Management</span>
+                    </div>
+
+                    <h2 class="fw-bold mb-1">Courses</h2>
+
+                    <p class="text-muted mb-0">
+                        Manage your courses, course details and available programs.
+                    </p>
+                </div>
+
+                <a th:href="@{/course/new}"
+                   class="btn btn-primary px-4">
+                    <i class="bi bi-plus-lg me-2"></i>
+                    Add New Course
+                </a>
+
+            </div>
+
+
+            <!-- Success Message -->
+            <div th:if="${message}"
+                 class="alert alert-success border-0 shadow-sm d-flex align-items-center mb-4"
+                 role="alert">
+
+                <i class="bi bi-check-circle-fill me-2"></i>
+
+                <span th:text="${message}"></span>
+
+            </div>
+
+
+            <!-- Statistics -->
+            <div class="row g-3 mb-4">
+
+                <div class="col-sm-6 col-xl-4">
+
+                    <div class="card border-0 shadow-sm h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex align-items-center justify-content-between">
+
+                                <div>
+                                    <div class="text-muted small mb-1">
+                                        Total Courses
+                                    </div>
+
+                                    <h3 class="fw-bold mb-0"
+                                        th:text="${courses.totalElements}">
+                                        0
+                                    </h3>
+                                </div>
+
+                                <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-3">
+                                    <i class="bi bi-journals fs-4"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-6 col-xl-4">
+
+                    <div class="card border-0 shadow-sm h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex align-items-center justify-content-between">
+
+                                <div>
+                                    <div class="text-muted small mb-1">
+                                        Current Page
+                                    </div>
+
+                                    <h3 class="fw-bold mb-0"
+                                        th:text="${courses.number + 1}">
+                                        1
+                                    </h3>
+                                </div>
+
+                                <div class="rounded-3 bg-info bg-opacity-10 text-info p-3">
+                                    <i class="bi bi-file-earmark-text fs-4"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-6 col-xl-4">
+
+                    <div class="card border-0 shadow-sm h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex align-items-center justify-content-between">
+
+                                <div>
+                                    <div class="text-muted small mb-1">
+                                        Total Pages
+                                    </div>
+
+                                    <h3 class="fw-bold mb-0"
+                                        th:text="${courses.totalPages}">
+                                        1
+                                    </h3>
+                                </div>
+
+                                <div class="rounded-3 bg-success bg-opacity-10 text-success p-3">
+                                    <i class="bi bi-layers fs-4"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Course List -->
+            <div class="card border-0 shadow-sm">
+
+                <!-- Card Header -->
+                <div class="card-body px-4 py-3 border-bottom">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="rounded-3 bg-light p-2 me-3">
+                                <i class="bi bi-table text-primary"></i>
+                            </div>
+
+                            <div>
+                                <h5 class="fw-semibold mb-1">
+                                    Course List
+                                </h5>
+
+                                <p class="text-muted small mb-0">
+                                    Browse and manage available courses.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <span class="badge bg-light text-dark border"
+                              th:text="${courses.totalElements + ' Courses'}">
+                            0 Courses
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Empty State -->
+                <div class="card-body p-5 text-center"
+                     th:if="${courses.content.isEmpty()}">
+
+                    <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3"
+                         style="width: 70px; height: 70px;">
+
+                        <i class="bi bi-journal-x fs-3 text-muted"></i>
+
+                    </div>
+
+                    <h5 class="fw-semibold">
+                        No Courses Found
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        There are currently no courses available.
+                    </p>
+
+                    <a th:href="@{/course/new}"
+                       class="btn btn-primary">
+                        <i class="bi bi-plus-lg me-2"></i>
+                        Add First Course
+                    </a>
+
+                </div>
+
+
+                <!-- Table -->
+                <div class="table-responsive"
+                     th:if="${!courses.content.isEmpty()}">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead class="table-light">
+
+                        <tr>
+
+                            <th class="ps-4">
+                                ID
+                            </th>
+
+                            <th>
+                                Course
+                            </th>
+
+                            <th>
+                                Course Code
+                            </th>
+
+                            <th>
+                                Course Fee
+                            </th>
+
+                            <th>
+                                Duration
+                            </th>
+
+                            <th class="text-end pe-4">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <tr th:each="course : ${courses.content}">
+
+                            <!-- ID -->
+                            <td class="ps-4">
+
+                                <span class="badge bg-light text-dark border"
+                                      th:text="'#' + ${course.id}">
+                                    #1
+                                </span>
+
+                            </td>
+
+
+                            <!-- Course Name -->
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="rounded-3 bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center me-3"
+                                         style="width: 42px; height: 42px;">
+
+                                        <i class="bi bi-book"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="fw-semibold"
+                                             th:text="${course.courseName}">
+                                            Web Development
+                                        </div>
+
+                                        <small class="text-muted">
+                                            Academic Course
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- Course Code -->
+                            <td>
+
+                                <span class="badge bg-light text-dark border px-3 py-2"
+                                      th:text="${course.courseCode}">
+                                    WEB101
+                                </span>
+
+                            </td>
+
+
+                            <!-- Fee -->
+                            <td>
+
+                                <span class="fw-semibold"
+                                      th:text="${course.fee}">
+                                    ₹3999
+                                </span>
+
+                            </td>
+
+
+                            <!-- Duration -->
+                            <td>
+
+                                <div class="d-flex align-items-center text-muted">
+
+                                    <i class="bi bi-clock me-2"></i>
+
+                                    <span th:text="${course.duration}">
+                                        4 Months
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- Actions -->
+                            <td class="text-end pe-4">
+
+                                <div class="d-inline-flex gap-2">
+
+                                    <a th:href="@{'/course/' + ${course.id}}"
+                                       class="btn btn-sm btn-light border"
+                                       title="View Course">
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </a>
+
+                                    <a th:href="@{/course/{id}/edit(id=${course.id})}"
+                                       class="btn btn-sm btn-light border"
+                                       title="Edit Course">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- Pagination -->
+                <div class="card-body border-top"
+                     th:if="${courses.totalPages > 1}">
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                        <div class="small text-muted">
+
+                            Showing page
+                            <strong th:text="${courses.number + 1}">
+                                1
+                            </strong>
+                            of
+                            <strong th:text="${courses.totalPages}">
+                                1
+                            </strong>
+
+                        </div>
+
+
+                        <nav aria-label="Course pagination">
+
+                            <ul class="pagination mb-0">
+
+                                <!-- Previous -->
+                                <li class="page-item"
+                                    th:classappend="${courses.first} ? 'disabled'">
+
+                                    <a class="page-link"
+                                       th:href="@{'/course/list'(page=${courses.number > 0 ? courses.number-1 : 0}, size=${courses.size})}">
+
+                                        <i class="bi bi-chevron-left me-1"></i>
+                                        Previous
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- Page Numbers -->
+                                <li class="page-item"
+                                    th:each="pageNum : ${#numbers.sequence(0, courses.totalPages-1)}"
+                                    th:classappend="${pageNum} == ${courses.number} ? 'active' : ''">
+
+                                    <a class="page-link"
+                                       th:href="@{'/course/list'(page=${pageNum}, size=${courses.size})}"
+                                       th:text="${pageNum + 1}">
+                                        1
+                                    </a>
+
+                                </li>
+
+
+                                <!-- Next -->
+                                <li class="page-item"
+                                    th:classappend="${courses.last} ? 'disabled'">
+
+                                    <a class="page-link"
+                                       th:href="@{'/course/list'(page=${courses.last ? courses.number : courses.number+1}, size=${courses.size})}">
+
+                                        Next
+                                        <i class="bi bi-chevron-right ms-1"></i>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </nav>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- Existing Scripts -->
+<div th:replace="~{fragments/layout :: scripts}"></div>
+
+</body>
+
+</html>
